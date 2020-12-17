@@ -1,0 +1,62 @@
+<configuration>
+  <appender name="STDERR"
+    class="ch.qos.logback.core.ConsoleAppender">
+    <target>System.err</target>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>WARN</level>
+    </filter>
+    <encoder>
+      <pattern>%date %level [%file:%line] %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <target>System.out</target>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>DEBUG</level>
+      <onMatch>ACCEPT</onMatch>
+    </filter>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>INFO</level>
+      <onMatch>ACCEPT</onMatch>
+    </filter>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>TRACE</level>
+      <onMatch>ACCEPT</onMatch>
+    </filter>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>WARN</level>
+      <onMatch>DENY</onMatch>
+    </filter>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>DENY</onMatch>
+    </filter>
+    <encoder>
+      <pattern>%date %level [%file:%line] %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+    <destination>127.0.0.1:8089</destination>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <includeCallerData>true</includeCallerData>
+    </encoder>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+
+    <!-- Can choose Spring Boot profiles for which to use appender -->
+    <springProfile name="!local">
+      <appender-ref ref="LOGSTASH"/>
+    </springProfile>
+    <springProfile name="local">
+      <appender-ref ref="LOGSTASH"/>
+    </springProfile>
+  </root>
+
+</configuration>

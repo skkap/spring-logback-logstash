@@ -1,0 +1,18 @@
+apply plugin: 'org.springframework.boot'
+
+springBoot {
+    mainClassName = 'com.skkap.spring.elk.Application'
+}
+
+bootJar {
+    mainClassName = 'com.skkap.spring.elk.Application'
+}
+
+dependencies {
+    implementation 'javax.inject:javax.inject'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation 'net.logstash.logback:logstash-logback-encoder'
+}
