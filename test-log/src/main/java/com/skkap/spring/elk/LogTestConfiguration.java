@@ -8,16 +8,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CommonConfiguration {
+public class LogTestConfiguration {
   private final Logger logger = LoggerFactory.getLogger(getClass());
-
-  @Value("${spring.profiles.active}")
-  private String activeProfile;
 
   @PostConstruct
   public void init() {
-    MDC.put("profile", activeProfile);
-    
     logger.trace("trace message");
     logger.debug("debug message");
     logger.info("info message");

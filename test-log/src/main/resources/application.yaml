@@ -1,1 +1,4 @@
 spring.profiles.active: local
+
+logging:
+  logstash-tcp-endpoint: 127.0.0.1:8089

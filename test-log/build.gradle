@@ -4,6 +4,14 @@ springBoot {
     mainClassName = 'com.skkap.spring.elk.Application'
 }
 
+bootRun {
+    environment = [
+            "K8S_NODE_NAME": "some-node",
+            "K8S_POD_NAMESPACE": "some-namespace",
+            "K8S_POD": "some-pod",
+    ]
+}
+
 bootJar {
     mainClassName = 'com.skkap.spring.elk.Application'
 }

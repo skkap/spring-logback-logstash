@@ -39,8 +39,11 @@
     </encoder>
   </appender>
 
+  <!-- Logstash endpoint, expected host:port format. -->
+  <springProperty name="logstashTcpEndpoint" source="logging.logstash-tcp-endpoint"/>
+
   <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-    <destination>127.0.0.1:8089</destination>
+    <destination>${logstashTcpEndpoint}</destination>
     <encoder class="net.logstash.logback.encoder.LogstashEncoder">
       <includeCallerData>true</includeCallerData>
     </encoder>
